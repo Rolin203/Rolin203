@@ -1,0 +1,156 @@
+#programa realizado por Sebastian Arrazola, Bayron Wilches, Rolan Alvear 
+
+
+
+import os
+
+transacciones = {}
+consignaciones = {}
+
+while True:
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+    print("\n-REGISTRO DE CONTABILIDAD DISTRIBUCIONES YL-")
+    print("1. Agregar transacción")
+    print("2. Buscar transacción")
+    print("3. Mostrar todas las transacciones")
+    print("4. Ver total de las transacciones")
+    print("5. Añadir consignación")
+    print("6. Ver una consignación")
+    print("7. Ver todas las consignaciones")
+    print("8. Total de todas las consignaciones")
+    print("9. Salir del programa")
+
+    try:
+        opcion = int(input("Seleccione una opción: "))
+    except ValueError:
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print("Por favor, ingrese un número válido.")
+        input("Presione Enter para continuar.")
+        continue
+
+    if opcion == 1:
+        os.system('cls' if os.name == 'nt' else 'clear')
+        while True:
+            nombre = input("Ingrese el nombre de la transacción: ")
+            if any(char.isdigit() for char in nombre):
+                print("El nombre no puede contener números. Intente nuevamente.")
+            else:
+                break
+        while True:
+            try:
+                monto = float(input("Ingrese el valor de la transacción: "))
+                break
+            except ValueError:
+                print("Por favor, ingrese un valor numérico válido.")
+
+        if nombre in transacciones:
+            transacciones[nombre].append(monto)
+        else:
+            transacciones[nombre] = [monto]
+        print("Transacción agregada correctamente. Presione Enter para continuar.")
+        input()
+
+    elif opcion == 2:
+        os.system('cls' if os.name == 'nt' else 'clear')
+        if not transacciones:
+            print("No hay transacciones ingresadas. Por favor, intente de nuevo más tarde.")
+        else:
+            while True:
+                nombre = input("Ingrese el nombre de la transacción que desea averiguar: ")
+                if any(char.isdigit() for char in nombre):
+                    print("Por favor, ingrese un nombre válido, sin números.")
+                else:
+                    break
+            if nombre in transacciones:
+                print(f"Transacciones para {nombre}: {transacciones[nombre]}")
+            else:
+                print("El nombre no está en la lista de transacciones.")
+        print("Presione Enter para continuar.")
+        input()
+
+    elif opcion == 3:
+        os.system('cls' if os.name == 'nt' else 'clear')
+        if not transacciones:
+            print("No hay transacciones ingresadas. Por favor, intente de nuevo más tarde.")
+        else:
+            for nombre, trans in transacciones.items():
+                print(f"{nombre}: {trans}")
+        print("Presione Enter para continuar.")
+        input()
+
+    elif opcion == 4:
+        os.system('cls' if os.name == 'nt' else 'clear')
+        total_trans = sum(sum(trans) for trans in transacciones.values())
+        print(f"El total de todas las transacciones es: {total_trans}")
+        print("Presione Enter para continuar.")
+        input()
+
+    elif opcion == 5:
+        os.system('cls' if os.name == 'nt' else 'clear')
+        while True:
+            nombre = input("Ingrese el nombre de la consignación: ")
+            if any(char.isdigit() for char in nombre):
+                print("El nombre no puede contener números. Intente nuevamente.")
+            else:
+                break
+        while True:
+            try:
+                monto = float(input("Ingrese el valor de la consignación: "))
+                break
+            except ValueError:
+                print("Por favor, ingrese un valor numérico válido.")
+
+        if nombre in consignaciones:
+            consignaciones[nombre].append(monto)
+        else:
+            consignaciones[nombre] = [monto]
+        print("Consignación agregada correctamente. Presione Enter para continuar.")
+        input()
+
+    elif opcion == 6:
+        os.system('cls' if os.name == 'nt' else 'clear')
+        if not consignaciones:
+            print("No hay consignaciones ingresadas. Por favor, intente de nuevo más tarde.")
+        else:
+            while True:
+                nombre = input("Ingrese el nombre de la consignación que desea ver: ")
+                if any(char.isdigit() for char in nombre):
+                    print("Por favor, ingrese un nombre válido, sin números.")
+                else:
+                    break
+            if nombre in consignaciones:
+                print(f"Consignaciones para {nombre}: {consignaciones[nombre]}")
+            else:
+                print("El nombre no está en la lista de consignaciones.")
+        print("Presione Enter para continuar.")
+        input()
+
+    elif opcion == 7:
+        os.system('cls' if os.name == 'nt' else 'clear')
+        if not consignaciones:
+            print("No hay consignaciones ingresadas. Por favor, intente de nuevo más tarde.")
+        else:
+            for nombre, consignacion in consignaciones.items():
+                print(f"{nombre}: {consignacion}")
+        print("Presione Enter para continuar.")
+        input()
+
+    elif opcion == 8:
+        os.system('cls' if os.name == 'nt' else 'clear')
+        total_consignaciones = sum(sum(consignacion) for consignacion in consignaciones.values())
+        print(f"El total de todas las consignaciones es: {total_consignaciones}")
+        print("Presione Enter para continuar.")
+        input()
+
+    elif opcion == 9:
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print("Gracias por usar el programa de contabilidad de Distribuciones YL. Presione Enter para finalizar.")
+        input()
+        break
+
+    else:
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print("Opción inválida. Por favor, intente de nuevo.")
+        input()
+
